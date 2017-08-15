@@ -105,5 +105,16 @@ Unit& Unit::operator^=(double d)
     return *this;
 }
 
+bool Unit::operator==(const Unit& unit) const
+{
+        return (_factor == unit._factor) && \
+           (_dimension == unit._dimension).max() && \
+	           (_offset == unit._offset);
+}
 
+bool Unit::similar(const Unit& unit) const
+{
+        return  (_dimension == unit._dimension).max() && \
+	           (_offset == unit._offset);
+}
 }

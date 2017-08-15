@@ -63,6 +63,9 @@ public:
         assert(is_zero_offset());
         return _factor;
     }
+
+    bool operator==(const Unit& unit)const;
+    bool similar(const Unit& unit)const;
     
     double factor()const {return _factor;}
     
@@ -165,6 +168,7 @@ public:
     }
     
     const Unit& unit() const {return _unit;}
+
     const double& value() const {return _value;}
 };
 

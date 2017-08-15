@@ -11,6 +11,9 @@ int main()
     
     std::cout <<"u1: "<< u1 <<"\nu2: "<< u2 <<"\nu1+u2: "<< (u1+u2) <<"\nu2+u1: "<<(u2+u1)  <<"\nu1/u2: "<< u1/u2<<"\n"<<"u1*u1+u3: "<<(u1*u1+u3)<<"\n";
     
-    std::cout<<u3.to(Units::Unit("hectares"))<<std::endl;
+    std::cout<<u3.to(Units::Unit("hectare"))<<std::endl;
+
+    Units::Quantity u4(1, "cm");
+    std::cout<<(u2.unit() == u4.unit())<<std::endl;
     return 0;
 }
