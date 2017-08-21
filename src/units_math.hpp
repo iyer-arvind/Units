@@ -35,6 +35,10 @@ Quantity pow(const Quantity &x, double p)
 {
 	return Quantity(std::pow(x.value(), p), x.unit()^p);
 }
+Quantity pow(const Quantity &x, const Quantity& p)
+{
+	return pow(x, (double)p);
+}
 Quantity hypot(const Quantity &x, const Quantity &y)
 {
 	assert(x.unit().similar(y.unit()));

@@ -44,7 +44,10 @@ Unit Unit::get_unit(std::string s, bool no_parse)
 
 Quantity Quantity::to(const Unit &unit)const
 {
-    return Quantity(_value*double(_unit/unit), unit);
+    // TODO: FIXME! 
+    assert(_unit.similar(unit));
+    double nv = ((_value*_unit.factor())+_unit.offset()-unit.offset())/unit.factor();
+    return Quantity(nv, unit);
 }
 
 void Unit::to_stream(std::ostream& stream) const
@@ -55,6 +58,7 @@ void Unit::to_stream(std::ostream& stream) const
 Unit Unit::operator*(const Unit &u)const
 {
     assert(is_zero_offset());
+    assert(u.is_zero_offset());
     return Unit(_name+std::string("*")+u.name(),
                 _factor*u._factor,
                 _dimension+u._dimension, 0); 
@@ -63,6 +67,7 @@ Unit Unit::operator*(const Unit &u)const
 Unit& Unit::operator*=(const Unit &u)
 {
     assert(is_zero_offset());
+    assert(u.is_zero_offset());
     _factor *= u._factor;
     _dimension += u._dimension;
     _name = _name + "*" + u._name;
@@ -72,6 +77,7 @@ Unit& Unit::operator*=(const Unit &u)
 Unit Unit::operator/(const Unit &u)const
 {
     assert(is_zero_offset());
+    assert(u.is_zero_offset());
     return Unit(_name+std::string("/")+u.name(),
                 _factor/u._factor,
                 _dimension-u._dimension, 0); 
@@ -80,6 +86,7 @@ Unit Unit::operator/(const Unit &u)const
 Unit& Unit::operator/=(const Unit &u)
 {
     assert(is_zero_offset());
+    assert(u.is_zero_offset());
     _factor /= u._factor;
     _dimension -= u._dimension;
     _name = _name + "/" + u._name;
@@ -114,7 +121,7 @@ bool Unit::operator==(const Unit& unit) const
 
 bool Unit::similar(const Unit& unit) const
 {
-        return  (_dimension == unit._dimension).max() && \
-	           (_offset == unit._offset);
+        return  (_dimension == unit._dimension).max();
 }
+
 }

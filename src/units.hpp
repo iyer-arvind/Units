@@ -68,6 +68,7 @@ public:
     bool similar(const Unit& unit)const;
     
     double factor()const {return _factor;}
+    double offset()const {return _offset;}
     
     std::string dimstr() const
     {

@@ -15,5 +15,8 @@ int main()
 
     Units::Quantity u4(1, "cm");
     std::cout<<(u2.unit() == u4.unit())<<std::endl;
+    
+    std::cout<<Units::Quantity(10, "degC").to(Units::Unit("degF"))<<std::endl;
+    std::cout<<Units::Quantity(50, "degF").to(Units::Unit("degC"))<<std::endl;
     return 0;
 }
